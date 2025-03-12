@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN PAGE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: url('../static/images/back3.webp');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            width: 350px;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            animation: slideIn 1.2s ease-in-out;
+            position: relative;
+        }
+
+        h2 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 85%;
+            height: 45px;
+            border-radius: 10px;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid white;
+        }
+
+        button {
+            width: 50%;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background-color: #ff5733;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c13c22;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ff5733;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: white;
+            font-size: 14px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+
+            input {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+        
+        <form action="/login_page_submission" method="POST">  <!-- Updated form action -->
+            {% csrf_token %}
+            {% if messages %}
+               {% for i in messages %}
+                 <h3 style="color: red;">{{i}}</h3>
+               {% endfor %}
+            {% endif %}  
+            <h2>Login</h2>
+            <input type="text" placeholder="Enter your OTP or email id" name="otp_number"><br>
+            <input type="password" placeholder="Enter your password" name="password"><br>
+            <button type=Submit>LOGIN</button>
+            <h3>Don't have an account? <a href="{% url 'register' %}">Register</a></h3>  <!-- Updated URL for register -->
+        </form>
+        {% if error %}
+            <p>{{ error }}</p>
+         {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Appliance Repair</title>
+    {% load static %}
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        /* Import Google Fonts */
+     /* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+
+
+
+
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: 0.5s;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.navbar-menu a:hover {
+    color: #f1c40f;
+    transform: scale(1.1);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Service Section */
+.services-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 100px;
+    animation: slideInUp 1s ease-in-out;
+}
+
+.first-services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.service {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.service:hover {
+    transform: translateY(-10px);
+}
+
+.service img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.service h2 {
+    font-size: 22px;
+    margin: 10px 0;
+    color: #007bff;
+}
+
+.service h3 {
+    font-size: 16px;
+    color: #444;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        background: #007bff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
+    }
+    
+    .navbar-menu.show {
+        display: flex;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        
+        <div class="navbar-brand">Repair Services</div>
+        <h2> WELCOME {{logger_data.name}}</h2>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="navbar-menu" id="menu">
+            <a href="/book_order/{{logger_data.id}}">BOOK SERVICE</a>
+            <a href="/view_booking">VIEW BOOKING</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+
+    
+
+    
+    <h2 class="services-title">ALL SERVICES</h2><hr>
+    <div class="first-services">
+      <div class="service">
+          <img src="{% static 'images/ac repai.jpg' %}" alt="repair">
+          <h2>AC Repair Services</h2>
+          <h3>"Is your AC not cooling properly💨?Our professional technicians🔧 
+          diagnose and fix issues quickly 🏠 ,Reliable, fast 🛠️, and affordable AC repair services ❄️ , bringing back the comfort you deserve ❄️ !"</h3>
+          <button type="submit"><a href="{% url 'ac' %}">EXPLORE MORE</a></button>
+  
+      </div>
+      <div class="service">
+          <img src="{% static 'images/frire.jpg' %}" alt="repair">
+          <h2>Refrigerator Repair Services</h2>
+          <h3>"From leaks to cooling issues🧊, our skilled technicians fix all fridge🔧 problems efficiently. Quick service, lasting solutions❄️!"</h3>
+          <button type="submit"><a href="{% url 'washing' %}">EXPLORE MORE</a></button>
+      </div>
+      <div class="service">
+          <img src="{% static 'images/wash2.jpg' %}" alt="repair">
+          <h2>Washing Machine Repair Services</h2>
+          <h3> "Is your washing machine🚿making noise or not spinning🛠️?Spinning troubles🌀? Drainage issues⚙️?Our skilled technicians🛠️ensure your washing machine runs like new🏠!"</h3>
+          <button type="submit">EXPLORE MORE</button>
+      </div>
+      <!-- <div class="service">
+          <img src="{% static 'images/pip.png' %}" alt="repair">
+      </div> -->
+  </div>
+  
+  <div class="first-services">
+      <div class="service">
+          <img src="{% static 'images/uri2.jpg' %}" alt="repair">
+          <h2> Water Purifier Repair Services</h2>
+          <h3>" Clean water 💧 is essential! We fix all purifier issues 🚰, from filter replacements to motor repairs ⚙️, ensuring your family's safety.Is your water💧purifier leaking or not filtering properly🔧? Our technicians🛠️provide quick and reliable repair solutions🏠."</h3>
+          <button type="submit">EXPLORE MORE</button>
+      </div>
+      <div class="service">
+          <img src="{% static 'images/dishre.jpg' %}" alt="repair">
+          <h2>Dishwasher Repair Services</h2>
+          <h3>"Drainage problems🚿to broken spray arms,our expert technicians🛠️handle all dishwasher repairs with care.🍽️Tired of washing dishes by hand? Let us fix your dishwasher⚙️and bring back the convenience🏠!"</h3>
+          <button type="submit">EXPLORE MORE</button>
+      </div>
+      <div class="service">
+  
+        <img src="{% static 'images/microovenre.jpg' %}" alt="repair">
+          <h2> Microwave Oven Repair Services</h2>
+          <h3>"Is your microwave not heating🔥or making strange noises💨? Get expert repair services🛠️  for quick and efficient fixes🔧.our technicians diagnose🛠️  and repair all microwave🍽️ issues with precision!"</h3>
+          <button type="submit">EXPLORE MORE</button>
+      </div>
+      <!-- <div class="service">
+          <img src="{% static 'images/pip.png' %}" alt="repair">
+      </div> -->
+  </div>
+  
+  
+  
+    
+      
+ 
+    <!-- Services Section -->
+
+    </section>
+</body>
+</html>

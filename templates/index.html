@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@600&display=swap');
+
+        
+        body {
+            background-image: url('../static/images/back3.webp');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 730px;
+            
+        }
+
+        .form1 {
+            padding: 70px;
+            margin: 70px;
+            background-color: #333;
+        }
+
+        .search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 300px;
+        }
+
+        .flexxx{
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .flexxx  >.flex-one{
+            padding: 20px;
+            margin: 20px;
+            width: 50%;
+        }
+        .flexxx  >.flex-two{
+            padding: 20px;
+            margin: 20px;
+            width: 50%;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav ul li {
+            margin: 0 15px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 0.5s forwards ease-in-out;
+        }
+
+        .nav ul li:nth-child(1) { animation-delay: 0.2s; }
+        .nav ul li:nth-child(2) { animation-delay: 0.4s; }
+        .nav ul li:nth-child(3) { animation-delay: 0.6s; }
+        .nav ul li:nth-child(4) { animation-delay: 0.8s; }
+        .nav ul li:nth-child(5) { animation-delay: 1s; }
+
+        .nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px 15px;
+            display: inline-block;
+            transition: all 0.3s ease-in-out;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .services{
+          padding: 20px;
+          margin:20px;
+    
+    
+         }
+         .servicess{
+          padding:10px;
+          margin:20px;
+    
+      
+            }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 30px;
+            height: 3px;
+            background: white;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-form {
+    background: rgba(255, 255, 255, 0.1); /* Transparent effect */
+    backdrop-filter: blur(15px); /* Frosted glass */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Input fields */
+.custom-form input{width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s ease-in-out;}
+.custom-form select {
+    width: 105%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+
+.custom-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Input field focus */
+.custom-form input:focus,
+.custom-form select:focus {
+    border-color: #ff7e5f;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(255, 126, 95, 0.5);
+}
+.brand{
+            background-image: url('../static/images/gpt2.webp');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 600px;
+    
+}
+
+.brand-flex{
+    /* background-image: url('../static/images/back2.webp');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 300px; */
+    justify-content: center;
+    display: flex;
+    margin-right: 100px;
+    
+}
+.brand1{
+    padding:10px;
+    margin:10px;
+}
+.brand2{
+    padding:10px;
+    margin:10px;
+}
+.brand3{
+    padding:10px;
+    margin:10px;
+}
+.brand4{
+    padding:10px;
+    margin:10px;
+}
+
+.brand-flexx{
+    justify-content: center;
+    display: flex;
+    margin-right: 90px;
+   
+}
+
+.brand-flexx > .brand1{
+    padding:10px;
+    margin:10px;
+}
+.brand-flexx > .brand2{
+    padding:10px;
+    margin:10px;
+}
+.brand-flexx > .brand3{
+    padding:10px;
+    margin:10px;
+}
+.brand-flexx > .brand4{
+    padding:10px;
+    margin:10px;
+}
+
+.brand{
+    padding:10px;
+    margin-left:80px;
+}
+
+
+
+
+/* Button */
+.custom-form button {
+    background:rgb(103, 10, 154);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.custom-form button:hover {
+    background: #e76b52;
+    transform: scale(1.05);
+}
+
+/* Form Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Layout for Forms */
+@media (max-width: 600px) {
+    .custom-form {
+        width: 50%;
+        padding: 15px;
+    }
+}
+
+/* Responsive Search and Location */
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.search input {
+    padding: 10px;
+    width: 200px;
+}
+
+.search button {
+    padding: 10px;
+}
+
+.location select {
+    padding: 10px;
+}
+
+.services{
+    padding: 20px;
+    margin:20px;
+    
+    
+}
+/* Smooth animation for search bar */
+.search input:focus {
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+}
+
+
+
+
+
+.brand {
+            background: url('../static/images/gpt2.webp') no-repeat center center/cover;
+            padding: 100px;
+            padding-top:20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
+            animation: fadeIn 1s ease-in-out;
+            height: 500px;
+        }
+         h2{
+            color: black;
+            text-shadow : 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        h4 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+        }
+        h5 {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color :#007bff;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            font-size: 18px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* font-family: Arial, Helvetica, sans-serif;
+}
+
+.p3 {
+  font-family: "Lucida Console", "Courier New", monospace;
+} */
+
+
+        .services-title {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 32px;
+            text-align: center;
+            color:red;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+.choose{
+    justify-content:center;
+    display:flex;
+}
+.choooseone{
+    padding:20px;
+    margin:20px;
+}
+.chooosetwo{
+    padding:20px;
+    margin:20px;
+}
+
+        /* General Styling */
+.first-services {
+    display: flex;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    /* gap: 10px;  */
+    padding: 40px;
+}
+
+/* Individual Service Box */
+.service {
+    text-align: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.service img {
+    width: 250px;
+    height: 200px;
+    border-radius: 3px;
+}
+
+/* Hover Animation */
+.service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Styling */
+button {
+    background: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #003f7f;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+header {
+            background: #ff5733;
+            color: white;
+            padding: 25px;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease-in-out;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            justify-content:center;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+         
+            background: linear-gradient(to right,rgba(16, 66, 154, 0.39),rgba(197, 15, 15, 0.78));
+            
+          
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .service-box {
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease-in-out;
+            
+            width: 90%;
+            max-width: 350px;
+        }
+        .service-box:hover {
+            transform: translateY(-10px);
+        }
+        img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            transition: transform 0.5s ease-in-out;
+        }
+        img:hover {
+            transform: scale(1.08);
+        }
+        .cta {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            /* border-radius: 8px; */
+            font-size: 18px;
+            transition: all 0.3s ease-in-out;
+        }
+        .cta:hover {
+            transform: scale(1.1);
+            background: #218838;
+        }
+        .pricing {
+            /* background: white; */
+            padding: 25px;
+            margin: 20px auto;
+            /* border-radius: 15px; */
+            /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
+            max-width: 600px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .choose {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .choose-box {
+            /* background: white; */
+            padding: 20px;
+            margin: 15px;
+            /* border-radius: 15px; */
+            /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
+            width: 45%;
+            text-align: center;
+        }
+        .choose-box img {
+            width: 80px;
+            height: 80px;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            header {
+                font-size: 20px;
+                padding: 15px;
+            }
+            .service-box {
+                width: 95%;
+            }
+            .choose-box {
+                width: 90%;
+            }
+        }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .first-services {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul id="menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="/login">LOGIN</a></li>
+            <li><a href="/register">REGISTER</a></li>
+            <li><a href="/about">ABOUT</a></li>
+            <li><a href="index.html">SERVICES</a></li>
+            <li><a href="index.html">BLOG</a></li>
+            <li><a href="index.html">CONTACT</a></li>
+        </ul>
+    </div>
+
+    <div class="inspection">
+        <center>
+            <h3 style="color: white; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 50px;">SS HOME APPLIANCES SERVICES </h3>
+           
+        </center>
+    </div>
+
+    <div class="form-container">
+        <form class="custom-form">
+            <input type="text" placeholder="NAME">
+            <input type="text" placeholder="MOBILE NUMBER">
+            <select name="location">
+                <option value="dindigul">Dindigul</option>
+                <option value="madurai">Madurai</option>
+                <option value="coimbatore">Coimbatore</option>
+            </select>
+            <button type="submit">SUBMIT</button>
+        </form>
+    </div>
+
+    <center>
+        <h2 style="color:white">OR</h2>
+        <h2 style="font-size:20px;color:white">GIVE A MISSED CALL TO BOOK </h2>
+        <h1 style="color: red; padding-bottom: 50px;"> 📞 +91 1234567890</h1>
+    </center>
+
+<div class="flexxx">
+      <div class="flex-one">
+        <h2 style="color: blue; font-size: 56px;">About Servicemen</h2>
+        <h1 style="font-size: 40px;">Service You Can Trust, Comfort You Deserve</h1>
+        <h3 style="font-size: 28px;">With a deep understanding of home appliance repair, we offer expert installation and maintenance services across Chennai. We ensure your appliances work seamlessly, so your life stays stress-free!</h3>
+       
+      </div>
+      <div class="flex-two">
+        <img src="{% static 'images/subra.jpeg' %}" alt="repair" style="width: 350px; height: 300px; border-radius: 50px;">
+        <h3 style="font-size: 28px;">Our skilled servicemen are dedicated to delivering top-notch home appliance solutions in Chennai. With years of experience, they provide expert installation, repair, and maintenance for ACs, refrigerators, washing machines, and more. Trust our professionals for reliable and efficient service every time!</h3>
+    </div>
+</div>
+    <!-- <div class="servicess">
+        <h2 style="color: blue; font-size: 36px;">Our Services</h2>
+        <h1 style="font-size: 40px;">Complete Home Appliance Care</h1>
+        <h3 style="font-size: 28px;font-family: 'Poppins', sans-serif;
+">We specialize in the installation, repair, and maintenance of all major home appliances, including ACs, refrigerators, and washing machines. Our expert team ensures top-quality service to keep your appliances running efficiently, providing you with a hassle-free experience!</h3>
+    </div> -->
+    
+    
+     
+   <div class="brand">
+    <h4 style="font-size: 28px;font-family: 'Poppins', sans-serif;color:blue
+">POPULAR BRANDS</h4>
+    <h2>TOP Brands We Work With </h2>
+    <h5>Our experts specialize in servicing all major home appliance brands available in the market.</h5>
+    <button type="submit" style="color: blue;">BOOK NOW</button>
+
+ <div class="brand-flex">
+    <div class="brand1">
+         <img src="{% static 'images/whirl4.jpg' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+
+    </div>
+    <div class="brand2">
+         <img src="{% static 'images/goorqj.png' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+    </div>
+    <div class="brand4">
+         <img src="{% static 'images/samgsung.jpg' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+    </div>
+    <div class="brand3">
+         <img src="{% static 'images/bluestar.jpg' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+    </div>
+    
+  
+
+ </div>
+
+
+      
+    <div class="brand-flexx">
+    <div class="brand1">
+         <img src="{% static 'images/lg.png' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+
+    </div>
+    <div class="brand3">
+        <img src="{% static 'images/hitachu.png' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+   </div>
+    <div class="brand2">
+         <img src="{% static 'images/pano2.png' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+    </div>
+    <div class="brand4">
+         <img src="{% static 'images/pip.png' %}" alt="repair" style="width: 100px; height: 100px; border-radius: 50px;">
+    </div>
+   
+ </div>
+  </div>
+
+  <div class="container">
+    <!-- <h2 style="text-align: center;">Why Choose Us</h2> -->
+    <div class="choose">
+        
+        <div class="choose-box">
+            <img src="{% static 'images/quality1.webp' %}" style="width: 200px; height: 200px;" alt="Quality Service"  >
+            <h2> Quality Service </h2>
+            <p style="font-size:20px">We provide top-notch AC repair and maintenance with skilled professionals.</p>
+        </div>
+        <div class="choose-box">
+            <img src="{% static 'images/money.webp' %}"  style="width: 200px; height: 200px;" alt="Affordable Pricing">
+            <h2>Affordable Pricing</h2>
+            <p style="font-size:20px">Get the best services at competitive prices without compromising quality.</p>
+        </div>
+    </div>
+    <div class="choose">
+        <div class="choose-box">
+            <img src="{% static 'images/daily.webp' %}" style="width: 200px; height: 200px;" alt="24/7 Support">
+            <h2>24/7 Support</h2>
+            <p style="font-size:20px">Our team is available round the clock to assist you with any AC issues.</p>
+        </div>
+        <div class="choose-box">
+            <img src="{% static 'images/expres.webp' %}" style="width: 200px; height: 200px;" alt="Experienced Technicians">
+            <h2>Experienced Technicians</h2>
+            <p style="font-size:20px">Our certified experts ensure reliable solutions for all AC brands.</p>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+  <h2 class="services-title">ALL SERVICES</h2><hr>
+  <div class="first-services">
+    <div class="service">
+        <img src="{% static 'images/ac repai.jpg' %}" alt="repair">
+        <h2>AC Repair Services</h2>
+        <h3>"Is your AC not cooling properly💨?Our professional technicians🔧 
+        diagnose and fix issues quickly 🏠 ,Reliable, fast 🛠️, and affordable AC repair services ❄️ , bringing back the comfort you deserve ❄️ !"</h3>
+        <button type="submit"><a href="{% url 'ac' %}">EXPLORE MORE</a></button>
+
+    </div>
+    <div class="service">
+        <img src="{% static 'images/frire.jpg' %}" alt="repair">
+        <h2>Refrigerator Repair Services</h2>
+        <h3>"From leaks to cooling issues🧊, our skilled technicians fix all fridge🔧 problems efficiently. Quick service, lasting solutions❄️!"</h3>
+        <button type="submit"><a href="{% url 'washing' %}">EXPLORE MORE</a></button>
+    </div>
+    <div class="service">
+        <img src="{% static 'images/wash2.jpg' %}" alt="repair">
+        <h2>Washing Machine Repair Services</h2>
+        <h3> "Is your washing machine🚿making noise or not spinning🛠️?Spinning troubles🌀? Drainage issues⚙️?Our skilled technicians🛠️ensure your washing machine runs like new🏠!"</h3>
+        <button type="submit">EXPLORE MORE</button>
+    </div>
+    <!-- <div class="service">
+        <img src="{% static 'images/pip.png' %}" alt="repair">
+    </div> -->
+</div>
+
+<div class="first-services">
+    <div class="service">
+        <img src="{% static 'images/uri2.jpg' %}" alt="repair">
+        <h2> Water Purifier Repair Services</h2>
+        <h3>" Clean water 💧 is essential! We fix all purifier issues 🚰, from filter replacements to motor repairs ⚙️, ensuring your family's safety.Is your water💧purifier leaking or not filtering properly🔧? Our technicians🛠️provide quick and reliable repair solutions🏠."</h3>
+        <button type="submit">EXPLORE MORE</button>
+    </div>
+    <div class="service">
+        <img src="{% static 'images/dishre.jpg' %}" alt="repair">
+        <h2>Dishwasher Repair Services</h2>
+        <h3>"Drainage problems🚿to broken spray arms,our expert technicians🛠️handle all dishwasher repairs with care.🍽️Tired of washing dishes by hand? Let us fix your dishwasher⚙️and bring back the convenience🏠!"</h3>
+        <button type="submit">EXPLORE MORE</button>
+    </div>
+    <div class="service">
+
+        <img src="{% static 'images/microovenre.jpg' %}" alt="repair">
+        <h2> Microwave Oven Repair Services</h2>
+        <h3>"Is your microwave not heating🔥or making strange noises💨? Get expert repair services🛠️  for quick and efficient fixes🔧.our technicians diagnose🛠️  and repair all microwave🍽️ issues with precision!"</h3>
+        <button type="submit">EXPLORE MORE</button>
+    </div>
+    <!-- <div class="service">
+        <img src="{% static 'images/pip.png' %}" alt="repair">
+    </div> -->
+</div>
+
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('show');
+        }
+    </script>
+  
+    
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.login-container,
+.dashboard-container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  background-color: #e9ecef;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Customer Portal</h1>
+  </header>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginError" style="color: red; display: none;">Incorrect Username or Password</p>
+  </div>
+
+  <div class="dashboard-container" style="display: none;">
+    <h2>Welcome <span id="userNameDisplay"></span></h2>
+    <h3>Your Service History</h3>
+    <ul id="serviceHistory">
+      <!-- Service history will be dynamically populated here -->
+    </ul>
+    
+    <h3>Track Ongoing Service</h3>
+    <button onclick="trackService()">Track Service Status</button>
+    <p id="serviceStatus"></p>
+
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script > const users = [
+    {
+      username: "devi",
+      password: "123",
+      serviceHistory: [
+        { serviceDate: "2023-02-15", serviceType: "AC Repair", status: "Completed" },
+        { serviceDate: "2023-03-05", serviceType: "AC Cleaning", status: "Completed" }
+      ],
+      ongoingService: "AC Filter Replacement"
+    },
+    // Add more users as needed
+  ];
+  
+  document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    const user = users.find(user => user.username === username && user.password === password);
+    
+    if (user) {
+      showDashboard(user);
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  });
+  
+  function showDashboard(user) {
+    document.querySelector('.login-container').style.display = 'none';
+    const dashboard = document.querySelector('.dashboard-container');
+    dashboard.style.display = 'block';
+    
+    // Show username
+    document.getElementById('userNameDisplay').textContent = user.username;
+    
+    // Display service history
+    const serviceHistoryList = document.getElementById('serviceHistory');
+    user.serviceHistory.forEach(service => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${service.serviceDate} - ${service.serviceType} - ${service.status}`;
+      serviceHistoryList.appendChild(listItem);
+    });
+  }
+  
+  function trackService() {
+    const user = users[0]; // In a real-world app, get logged-in user
+    document.getElementById('serviceStatus').textContent = `Ongoing Service: ${user.ongoingService}`;
+  }
+  
+  function logout() {
+    document.querySelector('.dashboard-container').style.display = 'none';
+    document.querySelector('.login-container').style.display = 'block';
+  }
+  </script>
+</body>
+</html>
+

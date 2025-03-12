@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Repair Services</title>
+    {% load static %}
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet"> -->
+    <style>
+        /* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap'); */
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        header {
+            background: #007BFF;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            animation: slideDown 1s ease-in-out;
+        }
+        .container {
+            padding: 20px;
+           
+
+        }
+        .containers {
+            padding: 20px;
+            display: flex ;
+
+        }
+        .service-box {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .service-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        img:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        .cta, .order-btn {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .cta:hover, .order-btn:hover {
+            transform: scale(1.1);
+            background: #218838;
+        }
+        .pricing, .services-info {
+            background: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            animation: fadeIn 1s ease-in-out;
+        }
+       .beifits{
+        box-shadow:0 4px 8px rgba(0, 0, 0, 0.2);
+        justify-content:center;
+        display:flex;
+       }
+       .beifits >.bone{
+        padding:10px;
+        margin:10px;
+       }
+       .beifits >.btwo{
+        padding:10px;
+        margin:10px;
+       }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100px); }
+            to { transform: translateY(0); }
+        }
+        @keyframes glow {
+        0% { text-shadow: 4px 4px 8px rgba(255, 87, 51, 0.6); }
+        100% { text-shadow: 6px 6px 12px rgba(255, 87, 51, 0.9); }
+    }
+    /* Media query for tablets in landscape mode */
+@media (max-width: 1024px) {
+    header {
+        font-size: 22px;
+    }
+
+    .service-box {
+        width: 48%;
+        margin: 1%;
+    }
+
+    img {
+        max-width: 300px;
+    }
+}
+
+/* Media query for tablets in portrait mode */
+@media (max-width: 768px) {
+    header {
+        font-size: 18px;
+    }
+
+    .service-box {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .cta, .order-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Media query for smartphones */
+@media (max-width: 480px) {
+    header {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .cta, .order-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .pricing, .services-info {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .beifits {
+        flex-direction: column;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        AC Repair Services - Fast & Reliable
+    </header>
+</header>
+    <div class="container services-info">
+        <h2 style="
+        font-family: 'Oswald', cursive;
+        font-size: 36px;
+        font-weight: bold;
+        color: #FF5733;
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        letter-spacing: 2px;
+        text-align: center;
+        animation: glow 1.5s infinite alternate;
+    ">About Our AC Services</h2>
+        <p style="font-family:Playfair Display;font-size:20px">We provide complete AC solutions, including installation, repair, and maintenance. Our expert technicians ensure your AC runs smoothly, reducing energy costs and increasing lifespan.</p>
+        <center>
+            <img src="{% static 'images/ac repair.avif' %}" style="width:500px; height:400px;">
+        </center>
+        
+        <h3 style="font-family:'Pacifico', cursive;color:red" >Common AC Issues We Fix:</h3>
+        <h3>✅ AC Not Cooling Properly? Our experts quickly diagnose and fix the issue. 💨🔧</h3>
+        <h3>  ✅ Gas Refilling & Leak Repair – Ensures efficient cooling and prevents refrigerant leaks. ❄️🔄</h3>
+        <h3>   ✅ Compressor & Motor Repair – Fixes power issues, overheating, and unusual noises. ⚙️🛠️</h3>
+        <h3>   ✅ Thermostat & Sensor Check – Adjusts temperature settings for optimal cooling. 🌡️✅</h3>
+        <h3>   ✅ Filter & Coil Cleaning – Improves airflow and energy efficiency. 🌀🔍</h3>
+         <h3>    ✅ Electrical & Circuit Repairs – Fixes wiring issues for safe operation. ⚡🛠️</h3>
+         <h3> ✅ Annual Maintenance Service – Extends AC lifespan and reduces electricity bills. 🔄💰</h3>
+            
+         <h3>   Reliable, fast, and professional service to bring back the comfort you deserve! ❄️💙</h3>
+     </div>       
+       <div class="beifits">
+        <div class="bone">
+         <h2 style="font-family:'Pacifico',cursive;color:green"> Benefits of Regular AC Maintenance:</h2>
+         <ul style="font-family:Arial, sans-serif">
+             <li><h4>Improves cooling performance❄️ Ensures your AC provides maximum cooling efficiency❄️.</h4></li>
+             <li><h4>Reduces electricity bills💰 Helps lower energy consumption and saves money.</h4></li>
+             <li><h4>Prevents sudden breakdowns⚠️Regular servicing avoids unexpected failures..</h4></li>
+             <li><h4>Increases AC lifespan⏳Keeps your AC running smoothly for years..</h4></li>
+         </ul>
+        </div>
+        <div class="btwo" >
+            <img src="{% static 'images/ac repair.avif' %}" style="width:200px;height:200px;">
+        </div>
+    </div>
+   
+   
+    <div class="containers">
+        <div class="service-box">
+            <img src="{% static 'images/gpt ac repai.webp' %}" style="width:300px;height:300px;">
+            <h2>Expert AC Repairs</h2>
+            <p style="font-size:20px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" >Quick and professional air conditioning repair services at your doorstep. Our skilled technicians provide reliable solutions, ensuring optimal cooling efficiency and long-term performance. We offer repairs, maintenance, and gas refilling to keep your AC running smoothly.</p>
+        </div>
+        <div class="service-box">
+            <img src="{% static 'images/ac ser.webp' %}" style="width:300px;height :300px; ">
+            <h2>Professional Technicians</h2>
+            <p style="font-size:20px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Trained experts to ensure quality service and satisfaction. Our team is experienced in diagnosing and fixing all AC issues with precision. We use advanced tools and techniques to provide efficient repairs, regular maintenance, and thorough inspections, ensuring your AC operates at peak performance.</p>
+        </div>
+    </div>
+      
+        <div class="pricing">
+         
+        
+            <h2 >Service Charges</h2>
+            
+            <p><strong>Inception Charge:</strong> Included in service</p>
+            <p><strong>Gas Full Service:</strong> Based on AC type</p>
+            <p><strong>General Service:</strong> ₹500</p>
+            <p><strong>Special Service Charge:</strong> ₹1000</p>
+      
+        </div>
+        <div class="cta">
+        <button type="submit" class="cta"><a href="/book_order">Book Your Service Now</a></button>
+    </div>
+        
+        <br>
+        
+    </div>
+</body>
+</html>
+

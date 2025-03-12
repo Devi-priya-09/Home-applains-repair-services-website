@@ -1,0 +1,192 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Repair Services</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #e0f7fa;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        header {
+            background: #00695c;
+            color: white;
+            padding: 20px;
+            font-size: 26px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .container {
+            padding: 20px;
+        }
+        .service-box {
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s, box-shadow 0.4s;
+            animation: zoomIn 1s ease-in-out;
+        }
+        .service-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            transition: transform 0.6s;
+        }
+        img:hover {
+            transform: rotate(-5deg) scale(1.1);
+        }
+        .cta, .order-btn {
+            background: #00838f;
+            color: white;
+            padding: 15px 20px;
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 20px;
+            transition: transform 0.4s, background 0.4s;
+        }
+        .cta:hover, .order-btn:hover {
+            transform: scale(1.15);
+            background: #004d40;
+        }
+        .pricing, .services-info {
+            background: #fff;
+            padding: 25px;
+            margin: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            text-align: left;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
+        }
+        /* Media queries for responsiveness */
+        @media (max-width: 1024px) {
+            header {
+                font-size: 22px;
+            }
+            .service-box {
+                width: 48%;
+                margin: 1%;
+            }
+            img {
+                max-width: 350px;
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                font-size: 20px;
+            }
+            .service-box {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            img {
+                max-width: 100%;
+            }
+            .container {
+                padding: 15px;
+            }
+            .cta, .order-btn {
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                font-size: 18px;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            p {
+                font-size: 14px;
+            }
+            .cta, .order-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+            img {
+                max-width: 100%;
+            }
+            .pricing, .services-info {
+                padding: 15px;
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        AC Repair Services - Fast & Reliable
+    </header>
+    <div class="container services-info">
+        <h2 style="
+        font-family: 'Roboto', sans-serif;
+        font-size: 34px;
+        font-weight: bold;
+        color: #00838f;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        animation: fadeIn 1.5s infinite alternate;
+    ">About Our AC Services</h2>
+        <p style="font-family: 'Roboto', sans-serif; font-size: 18px">We provide comprehensive AC solutions, including installation, repair, and maintenance. Our expert technicians ensure your AC runs smoothly, reducing energy costs and increasing lifespan.</p>
+        <center>
+            <img src="{% static 'images/ac_repair.jpg' %}" style="width:500px; height:400px;">
+        </center>
+        <h3 style="font-family: 'Roboto', sans-serif; color: #00695c;">Common AC Issues We Fix:</h3>
+        <ul style="font-family: 'Roboto', sans-serif; font-size: 16px; list-style: none; padding: 0; text-align: left;">
+            <li>✅ AC Not Cooling Properly</li>
+            <li>✅ Gas Refilling & Leak Repair</li>
+            <li>✅ Compressor & Motor Repair</li>
+            <li>✅ Thermostat & Sensor Check</li>
+            <li>✅ Filter & Coil Cleaning</li>
+            <li>✅ Electrical & Circuit Repairs</li>
+            <li>✅ Annual Maintenance Service</li>
+        </ul>
+        <h3 style="font-family: 'Roboto', sans-serif; color: #00838f;">Reliable, fast, and professional service to bring back the comfort you deserve! ❄️💙</h3>
+    </div>       
+    <div class="container">
+        <div class="service-box">
+            <img src="{% static 'images/ac_repair.jpg' %}" alt="AC Repair Image">
+            <h2>Expert AC Repairs</h2>
+            <p style="font-size: 18px; font-family: 'Roboto', sans-serif;">Quick and professional air conditioning repair services at your doorstep. Our skilled technicians provide reliable solutions, ensuring optimal cooling efficiency and long-term performance. We offer repairs, maintenance, and gas refilling to keep your AC running smoothly.</p>
+        </div>
+        <div class="service-box">
+            <img src="{% static 'images/technician.jpg' %}" alt="Technician Image">
+            <h2>Professional Technicians</h2>
+            <p style="font-size: 18px; font-family: 'Roboto', sans-serif;">Trained experts to ensure quality service and satisfaction. Our team is experienced in diagnosing and fixing all AC issues with precision. We use advanced tools and techniques to provide efficient repairs, regular maintenance, and thorough inspections, ensuring your AC operates at peak performance.</p>
+        </div>
+        <div class="pricing">
+            <center>
+            <h2>Service Charges</h2>
+            <p><strong>Inspection Charge:</strong> Included in service</p>
+            <p><strong>Gas Full Service:</strong> Based on AC type</p>
+            <p><strong>General Service:</strong> ₹500</p>
+            <p><strong>Special Service Charge:</strong> ₹1000</p>
+            </center>
+        </div>
+        <a href="#" class="cta">Book Your Service Now</a>
+    </div>
+</body>
+</html>

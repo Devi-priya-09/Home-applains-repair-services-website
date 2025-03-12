@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Booking Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            transition: margin-left 0.3s;
+        }
+        .toggle-btn {
+            font-size: 20px;
+            padding: 10px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: -250px;
+            top: 0;
+            background-color: #333;
+            color: white;
+            padding-top: 20px;
+            transition: 0.5s;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            margin-left: 0;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Toggle Button -->
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">HOME</a>
+        <a href="/dashboard" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">DASHBOARD</a>
+        <a href="/book_order" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">BOOKING SERVICES</a>
+        <a href="/contact" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">CONTACT US</a>
+        <a href="/about" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">ABOUT US</a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content">
+        <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; margin-top: 60px;">My Booking Services</h2>
+        <h2>Welcome, {{ logger_data.name }}!</h2>
+        
+        <!-- Service History -->
+        <h3>Your Service History</h3>
+       
+        <ul>
+            <!-- {% for service in service_history %}
+                <li>
+                    {{ service.appliance }} - {{ service.service_type }} - 
+                    Status: {{ service.status }} - 
+                    <a href="{% url 'tracking' service.id %}">Track Service</a>
+                </li>
+            {% endfor %} -->
+        </ul>
+
+        <!-- Booking Table -->
+        <table>
+         
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer Name</th>
+                <th>Service Type</th>
+                <th>Last Date services</th>
+                <th>Status</th>
+            </tr>
+            <!-- Example Static Data -->
+            <tr>
+                <td>{{i.logger_data.id}}</td>
+                <td>{{i.logger_data.name}}</td>
+                <td>{{i.logger_data.service_required}}</td>
+                <td>{{i.logger_data.date_of_orde}}</td>
+                <td>{{i.logger_data.status}}</td>
+            </tr>
+            <tr>
+                <td>2002</td>
+                <td>Washing Machine Repair</td>
+                <td>2025-03-01</td>
+                <td>Pending</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Script to Toggle Sidebar -->
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            let content = document.querySelector(".content");
+
+            if (sidebar.style.left === "-250px") {
+                sidebar.style.left = "0";
+                content.style.marginLeft = "250px";
+            } else {
+                sidebar.style.left = "-250px";
+                content.style.marginLeft = "0";
+            }
+        }
+    </script>
+</body>
+</html>

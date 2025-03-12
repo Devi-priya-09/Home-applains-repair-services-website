@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking</title>
+</head>
+<body>
+    <h1>Book Your Service</h1>
+    <form id="booking-form">
+        <label for="service">Select Service:</label>
+        <select id="service" name="service" required>
+            <option value="AC Repair">AC Repair</option>
+            <option value="AC Maintenance">AC Maintenance</option>
+            <option value="Home Appliances Repair">Home Appliances Repair</option>
+        </select>
+        <br><br>
+
+        <label for="date">Choose a Date:</label>
+        <input type="date" id="date" name="date" required>
+        <br><br>
+
+        <label for="time">Choose a Time:</label>
+        <input type="time" id="time" name="time" required>
+        <br><br>
+
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+
+        <label for="phone">Your Phone:</label>
+        <input type="text" id="phone" name="phone" required>
+        <br><br>
+
+        <button type="submit">Book Appointment</button>
+    </form>
+
+    <div id="confirmation-message" style="display:none; color: green; font-weight: bold;"></div>
+
+    <script>
+        document.getElementById('booking-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {
+                service: formData.get('service'),
+                date: formData.get('date'),
+                time: formData.get('time'),
+                name: formData.get('name'),
+                phone: formData.get('phone')
+            };
+
+            try {
+                // Send booking data to backend via fetch
+                const response = await fetch('/book-service', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json(); // Parse the response data
+                    // Display confirmation message
+                    const confirmationMessage = document.getElementById('confirmation-message');
+                    confirmationMessage.style.display = 'block';
+                    confirmationMessage.textContent = 'Booking successful! You will receive a confirmation soon.';
+                } else {
+                    // Handle error response from backend
+                    const errorData = await response.json();
+                    alert('Error booking your service: ' + errorData.message);
+                }
+            } catch (error) {
+                // Handle fetch or network errors
+                alert('An error occurred while submitting the booking: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
