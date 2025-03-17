@@ -75,10 +75,10 @@
     <!-- Sidebar Menu -->
     <div id="sidebar" class="sidebar">
         <a href="{% url 'index' %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">HOME</a>
-        <a href="/dashboard" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">DASHBOARD</a>
-        <a href="/book_order" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">BOOKING SERVICES</a>
-        <a href="/contact" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">CONTACT US</a>
-        <a href="/about" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">ABOUT US</a>
+        <a href="{% url 'dashboard' user_id=logger_data.id %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">DASHBOARD</a>
+        <a href="{% url 'book_order' user_id=logger_data.id %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">BOOKING SERVICES</a>
+        <a href="{% url 'contact' %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">CONTACT US</a>
+        <a href="{% url 'about' %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">ABOUT US</a>
     </div>
 
     <!-- Content Area -->
@@ -103,26 +103,21 @@
         <table>
          
             <tr>
-                <th>Booking ID</th>
+                <th>Customer_id</th>
                 <th>Customer Name</th>
                 <th>Service Type</th>
                 <th>Last Date services</th>
                 <th>Status</th>
             </tr>
-            <!-- Example Static Data -->
+            {% for booking in view_booking_details %}
             <tr>
-                <td>{{i.logger_data.id}}</td>
-                <td>{{i.logger_data.name}}</td>
-                <td>{{i.logger_data.service_required}}</td>
-                <td>{{i.logger_data.date_of_orde}}</td>
-                <td>{{i.logger_data.status}}</td>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.customer_name }}</td>
+                <td>{{ booking.service_required }}</td>
+                <td>{{ booking.date_of_order }}</td>
+                <td>{{ booking.status }}</td>
             </tr>
-            <tr>
-                <td>2002</td>
-                <td>Washing Machine Repair</td>
-                <td>2025-03-01</td>
-                <td>Pending</td>
-            </tr>
+            {% endfor %}
         </table>
     </div>
 

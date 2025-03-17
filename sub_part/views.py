@@ -118,10 +118,18 @@ def  login_page_submission(request):
 
 # View for user dashboard (after login)
 
-def dashboard(request):
-    return render(request, 'dashboard.html')
+def dashboard(request,user_id):
+    logger_data=customerregistertables.objects.get(id=user_id)
+    user_id=logger_data.id
+    view_booking_details=CustomerBookingTable.objects.filter(customer_id=user_id)
+    
+   
+    return render(request, 'dashboard.html',{'logger_data':logger_data},{'view_booking_details':view_booking_details})
 
 # View for service tracking
+
+
+
 
 # def service_tracking(request, service_id):
 #     # Get the service request
@@ -136,13 +144,13 @@ def washing(request)    :
     return render(request,'washing.html')
 
 
-def view_booking(request,)        :
-    
-     
-    #  view_booking_details=CustomerBookingTable.objects.filter(customer_id=user_id)
+def view_booking(request, user_id):
+    print(f"user_id is {user_id}")
+    logger_data = customerregistertables.objects.get(id=user_id)
+    view_booking_details = CustomerBookingTable.objects.filter(customer_id=user_id)
+    return render(request, 'view_booking.html', {'logger_data': logger_data, 'view_booking_details': view_booking_details})
 
-     return render(request,'view_booking.html')
-        
+
     
 
 def book_order(request,user_id)   :
@@ -194,5 +202,4 @@ def customer_booking_submission(request):
 
 def view_booking_customer_details(request):
     pass
-
 
