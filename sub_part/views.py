@@ -148,12 +148,15 @@ def view_booking(request, user_id):
     print(f"user_id is {user_id}")
     logger_data = customerregistertables.objects.get(id=user_id)
     view_booking_details = CustomerBookingTable.objects.filter(customer_id=user_id)
-    return render(request, 'view_booking.html', {'logger_data': logger_data, 'view_booking_details': view_booking_details})
+    return render(request, 'view_booking.html', {
+        'logger_data': logger_data,
+        'view_booking_details': view_booking_details
+    })
 
 
     
 
-def book_order(request,user_id)   :
+def book_order(request,user_id)  :
     print(f"user_id is{user_id}")
     logger_data=customerregistertables.objects.get(id=user_id)
        
@@ -163,25 +166,18 @@ def book_order(request,user_id)   :
 
 def customer_booking_submission(request):
     if request.method == 'POST':
-        # Make sure customer_id is not mistakenly assigned as a tuple (no comma at the end)
+        # Retrieve form data
         customer_id = request.POST.get('customer_id')
         customer_name = request.POST.get('customer_name')
         customer_email = request.POST.get('customer_email')
-
-        # Handle file uploads (use request.FILES.get() for images)
         appliance_image = request.FILES.get('appliance_image')
 
-        # Now ensure the correct indentation for the object creation
-        customer_door_number = request.POST.get('customer_door_number')
-        if not customer_door_number:
-            messages.error(request, "Customer door number cannot be empty.")
-            return render(request, 'book_order.html', {'logger_data': logger_data})
-
+        # Create a new booking entry
         ex1 = CustomerBookingTable(
             customer_id=customer_id,
             customer_name=customer_name,
             customer_email=customer_email,
-            customer_door_number=customer_door_number,
+            customer_door_number=request.POST.get('customer_door_number'),
             customer_address_street=request.POST.get('customer_address_street'),
             customer_address=request.POST.get('customer_address'),
             customer_phone_number=request.POST.get('customer_phone_number'),
@@ -190,16 +186,34 @@ def customer_booking_submission(request):
             service_required=request.POST.get('service_required'),
             issue_description=request.POST.get('issue_description'),
             date_of_order=request.POST.get('date_of_order'),
-            appliance_image=appliance_image,  # Handling file upload
+            appliance_image=appliance_image,
             extra_details=request.POST.get('extra_details'),
         )
         ex1.save()
-        print("data shored successfully")
-        logger_data = customerregistertables.objects.get(id=customer_id)
-        return render(request, 'view_booking.html', {'logger_data': logger_data})
+        print("Data stored successfully")
+
+        # Redirect to the view_booking page to fetch the latest data
+        return redirect('view_booking', user_id=customer_id)
+
+    return render(request, 'book_order.html')
 
 
 
 def view_booking_customer_details(request):
     pass
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('login', views.user_login, name='login'),
+    path('register', views.register, name='register'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
+    path('dashboard/<int:user_id>', views.dashboard, name='dashboard'),
+    path('view_booking/<int:user_id>', views.view_booking, name='view_booking'),
+    path('book_order/<int:user_id>', views.book_order, name='book_order'),
+    path('customer_booking_submission', views.customer_booking_submission, name='customer_booking_submission'),
+]
 

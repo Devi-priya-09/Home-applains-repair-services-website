@@ -95,7 +95,7 @@
     <div id="sidebar" class="sidebar">
         <a href="/index" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">HOME</a>
         <a href="/dashboard" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">DASHBOARD</a>
-        <a href="/view_booking" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">VIEW BOOKING</a>
+        <a href="/view_booking/{{logger_data.id}},{{logger_data.name}}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">VIEW BOOKING</a>
         <a href="/contact" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">CONTACT US</a>
         <a href="/about" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">ABOUT US</a>
     </div>
@@ -107,9 +107,9 @@
         <form  action="/customer_booking_submission" method="POST" >
             {% csrf_token %}
         
-            <input type="text" placeholder="User ID" value="{{ logger_data.id }}" name="customer_id" >
+            <input type="text" placeholder="User ID" value="{{ logger_data.id }}" name="customer_id"  >
             <input type="text" placeholder="Username" value="{{ logger_data.name }}" name="customer_name" >
-            <input type="text" placeholder="User Email" value="{{ logger_data.email }}" name="customer_email" ><br><br>
+            <input type="text" placeholder="User Email" value="{{ logger_data.email }}" name="customer_email"  ><br><br>
         
             <label>Home Appliance</label>
             <input type="text" placeholder="Enter your home appliance" name="home_appliance">
