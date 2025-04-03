@@ -9,6 +9,26 @@ from django.db.models import Q
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .utils import send_seasonal_offer_email  
+from rest_framework import generics
+from .serializers import customer_booking_data_serializer
+
+# list and create books
+# convert all data into API
+class CustomerListBookingCreateView(generics.ListCreateAPIView):
+    queryset=CustomerBookingTable.objects.all()
+    serializer_class=customer_booking_data_serializer
+
+
+# retrive,update,delete a book  single data
+# convert single data into ApI(can update,delete)
+class CustomerRetriveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)   :
+    queryset=CustomerBookingTable.objects.all() 
+    serializer_class=customer_booking_data_serializer
+
+    
+
 
 
 def index(request):
@@ -38,7 +58,7 @@ def register_form_submission(request):
 
         print(name, email, password, confirm_password, phone_number, address)
 
-        # Check if email or phone number already exists
+        
         if customerregistertables.objects.filter(email=email).exists():
             messages.error(request, "This email ID is already registered.", extra_tags='already')
             return render(request, 'register.html')
@@ -46,21 +66,21 @@ def register_form_submission(request):
             messages.error(request, "This phone number is already registered.", extra_tags='already')
             return render(request, 'register.html')
         
-        # Save the new user record
+        
         new_user = customerregistertables(
             name=name,
             email=email,
             password=password, 
-            confirm_password=confirm_password, # Note: Passwords should be hashed using Django's authentication system
+            confirm_password=confirm_password,
             phone_number=phone_number,
             address=address,
             otp_number=otp_number
          )
         new_user.save()
 
-        # Generate and send OTP
+        
       
-        otp_number = str(random.randint(100000, 999999))  # Generate a 6-digit OTP
+        otp_number = str(random.randint(100000, 999999))  
 
         subject = "Verify Your Account – OTP from SS HOME APPLAINS SERVICES Team"
         message = f"""
@@ -111,22 +131,18 @@ def  login_page_submission(request):
 
 
 
-# View for user login
 
 
-# View for registration (new user)
+def dashboard(request, user_id):
+    try:
+        logger_data = customerregistertables.objects.get(id=user_id)
+        return render(request, 'dashboard.html', {'logger_data': logger_data})
+    except customerregistertables.DoesNotExist:
+       
+        messages.error(request, "User not found!")
+        return redirect('index')  
 
-# View for user dashboard (after login)
 
-def dashboard(request,user_id):
-    logger_data=customerregistertables.objects.get(id=user_id)
-    user_id=logger_data.id
-    view_booking_details=CustomerBookingTable.objects.filter(customer_id=user_id)
-    
-   
-    return render(request, 'dashboard.html',{'logger_data':logger_data},{'view_booking_details':view_booking_details})
-
-# View for service tracking
 
 
 
@@ -146,6 +162,7 @@ def washing(request)    :
 
 def view_booking(request, user_id):
     print(f"user_id is {user_id}")
+    
     logger_data = customerregistertables.objects.get(id=user_id)
     view_booking_details = CustomerBookingTable.objects.filter(customer_id=user_id)
     return render(request, 'view_booking.html', {
@@ -159,20 +176,20 @@ def view_booking(request, user_id):
 def book_order(request,user_id)  :
     print(f"user_id is{user_id}")
     logger_data=customerregistertables.objects.get(id=user_id)
-       
+    messages.success(request,"your booking is successfully booked to check to view table")  
     return render(request,'book_order.html',{'logger_data':logger_data}) 
 
 
 
 def customer_booking_submission(request):
     if request.method == 'POST':
-        # Retrieve form data
+       
         customer_id = request.POST.get('customer_id')
         customer_name = request.POST.get('customer_name')
         customer_email = request.POST.get('customer_email')
         appliance_image = request.FILES.get('appliance_image')
 
-        # Create a new booking entry
+
         ex1 = CustomerBookingTable(
             customer_id=customer_id,
             customer_name=customer_name,
@@ -192,7 +209,7 @@ def customer_booking_submission(request):
         ex1.save()
         print("Data stored successfully")
 
-        # Redirect to the view_booking page to fetch the latest data
+       
         return redirect('view_booking', user_id=customer_id)
 
     return render(request, 'book_order.html')
@@ -202,18 +219,20 @@ def customer_booking_submission(request):
 def view_booking_customer_details(request):
     pass
 
-from django.urls import path
-from . import views
 
-urlpatterns = [
-    path('', views.index, name='index'),
-    path('login', views.user_login, name='login'),
-    path('register', views.register, name='register'),
-    path('about', views.about, name='about'),
-    path('contact', views.contact, name='contact'),
-    path('dashboard/<int:user_id>', views.dashboard, name='dashboard'),
-    path('view_booking/<int:user_id>', views.view_booking, name='view_booking'),
-    path('book_order/<int:user_id>', views.book_order, name='book_order'),
-    path('customer_booking_submission', views.customer_booking_submission, name='customer_booking_submission'),
-]
+
+
+
+
+
+def send_offer_email_view(request):
+    recipient_email = request.GET.get("email")
+    name = request.GET.get("name", "Customer")  
+    offer_type = request.GET.get("offer_type", "summer")  
+
+    if not recipient_email:
+        return JsonResponse({"error": "Email parameter is required!"}, status=400)
+
+    send_seasonal_offer_email(recipient_email, name, offer_type)
+    return JsonResponse({"message": f"Offer email ({offer_type}) sent to {recipient_email}!"})
 

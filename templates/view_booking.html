@@ -71,7 +71,7 @@
 <body>
     <!-- Sidebar Toggle Button -->
     <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
-
+   
     <!-- Sidebar Menu -->
     <div id="sidebar" class="sidebar">
         <a href="{% url 'index' %}" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">HOME</a>
@@ -102,18 +102,24 @@
         <!-- Booking Table -->
         <table>
          
-            <tr>
-                <th>Customer_id</th>
-                <th>Customer Name</th>
-                <th>Service Type</th>
-                <th>Last Date services</th>
-                <th>Status</th>
+            <tr style="color:red">
+                <th>CUSTOMER ID</th>
+                <th>CUSTOMER NAME</th>
+                <th>HOME APPLIANCE</th>
+                <th>BRAND</th>
+                <th>SERVICE TYPE</th>
+                <th>ISSUE DESCRIPTION</th>
+                <th>LAST DATE SERVICES</th>
+                <th>STATUS</th>
             </tr>
             {% for booking in view_booking_details %}
             <tr>
                 <td>{{ booking.id }}</td>
                 <td>{{ booking.customer_name }}</td>
+                <td>{{ booking.home_appliance}}</td>
+                <td>{{ booking.appliance_brand}}</td>
                 <td>{{ booking.service_required }}</td>
+                <td>{{ booking.issue_description}}</td>
                 <td>{{ booking.date_of_order }}</td>
                 <td>{{ booking.status }}</td>
             </tr>
