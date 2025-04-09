@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .utils import send_seasonal_offer_email  
 from rest_framework import generics
 from .serializers import customer_booking_data_serializer
@@ -32,7 +32,39 @@ class CustomerRetriveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)   
 
 
 def index(request):
-    return render(request, 'index.html')
+    feedbacks = Feedback.objects.all().order_by('-created_at')
+    return render(request, 'index.html', {'feedbacks': feedbacks})
+
+def add_feedback(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        rating = int(request.POST.get('rating', 0))
+        text = request.POST.get('text')
+        image = request.FILES.get('image')
+
+        # Check if feedback already exists for this email
+        if Feedback.objects.filter(email=email).exists():
+            return JsonResponse({'status': 'error', 'message': 'You have already submitted feedback.'})
+
+        feedback = Feedback.objects.create(name=name, email=email, rating=rating, text=text, image=image)
+        image_url = feedback.image.url if feedback.image else ''
+
+        return JsonResponse({
+            'status': 'success',
+            'name': feedback.name,
+            'rating': feedback.rating,
+            'text': feedback.text,
+            'image_url': image_url,
+        })
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+def delete_feedback(request, feedback_id):
+    if request.method == 'POST':
+        feedback = get_object_or_404(Feedback, id=feedback_id)
+        feedback.delete()
+        return JsonResponse({'status': 'success', 'message': 'Feedback deleted successfully'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 def user_login(request):
     return render(request, 'login.html')
@@ -54,39 +86,33 @@ def register_form_submission(request):
         confirm_password = request.POST.get('confirm_password')
         phone_number = request.POST.get('phone_number')
         address = request.POST.get('address')
-        otp_number = str(random.randint(100000, 999999)) 
+        otp_number = str(random.randint(100000, 999999))  # Generate OTP once
 
         print(name, email, password, confirm_password, phone_number, address)
 
-        
         if customerregistertables.objects.filter(email=email).exists():
             messages.error(request, "This email ID is already registered.", extra_tags='already')
             return render(request, 'register.html')
         elif customerregistertables.objects.filter(phone_number=phone_number).exists():
             messages.error(request, "This phone number is already registered.", extra_tags='already')
             return render(request, 'register.html')
-        
-        
+
         new_user = customerregistertables(
             name=name,
             email=email,
-            password=password, 
+            password=password,
             confirm_password=confirm_password,
             phone_number=phone_number,
             address=address,
             otp_number=otp_number
-         )
+        )
         new_user.save()
 
-        
-      
-        otp_number = str(random.randint(100000, 999999))  
-
-        subject = "Verify Your Account – OTP from SS HOME APPLAINS SERVICES Team"
+        subject = "Verify Your Account – OTP from SS HOME APPLIANCES SERVICES Team"
         message = f"""
         Dear {name},
 
-        Welcome to SS HOME APPLAINS SERVICES! To complete your registration and secure your account, please use the following One-Time Password (OTP):
+        Welcome to SS HOME APPLIANCES SERVICES! To complete your registration and secure your account, please use the following One-Time Password (OTP):
 
         OTP: {otp_number}
 
@@ -95,20 +121,20 @@ def register_form_submission(request):
 
         If you did not request this OTP, please ignore this email or contact our support team immediately at [Support Email/Phone Number].
 
-        Thank you for choosing SS HOME APPLAINS SERVICES for your home appliance repair needs.
+        Thank you for choosing SS HOME APPLIANCES SERVICES for your home appliance repair needs.
 
         Best regards,
-        SS HOME APPLAINS SERIVES Team
+        SS HOME APPLIANCES SERVICES Team
         [Your Website] | [+91 8667023585]
         """
 
         try:
             send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
             messages.success(request, "Registration successful! Please check your email for OTP verification.")
-            print("mail sent successfully")
+            print("Mail sent successfully")
         except Exception as e:
             messages.error(request, f"Error sending OTP email: {e}")
-            print(f"mail not sent successfuly reason -> {e}")
+            print(f"Mail not sent successfully. Reason -> {e}")
 
         print("Data saved successfully")
         return render(request, 'login.html')
@@ -236,3 +262,20 @@ def send_offer_email_view(request):
     send_seasonal_offer_email(recipient_email, name, offer_type)
     return JsonResponse({"message": f"Offer email ({offer_type}) sent to {recipient_email}!"})
 
+def test_email(request):
+    try:
+        send_mail(
+            'Test Email',
+            'This is a test email.',
+            settings.EMAIL_HOST_USER,
+            ['recipient@example.com'],  # Replace with a valid recipient email
+        )
+        return HttpResponse("Email sent successfully!")
+    except Exception as e:
+        return HttpResponse(f"Error sending email: {e}")
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+def feedback(request):
+    return render(request,'feedback.html')
