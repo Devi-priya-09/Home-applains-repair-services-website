@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HOME APPLIANCES SERVICES </title>
     {% load static %}
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -497,6 +497,188 @@ button:hover {
     }
 }
 
+/* .feedback{
+    display: flex ;
+    justify-content:center;
+    
+}
+.feedback > .fone{
+    margin:20px;
+    padding:20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback > .ftwo{
+    margin:20px;
+    padding:20px;
+}
+.feedback > .fthree{
+    margin:20px;
+    padding:20px;
+}
+        Header Styling */
+
+
+        .feedback-section {
+  text-align: center;
+  padding: 40px;
+  background-color: #f7f7f7;
+}
+
+.feedback-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.feedback {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feedback-card {
+  width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+
+.feedback-card:hover {
+  transform: translateY(-5px);
+}
+
+.feedback-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+#open-modal-btn {
+  margin-top: 30px;
+  padding: 10px 25px;
+  font-size: 16px;
+  color: white;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.modal {
+ 
+  margin-bottom:4000px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 999;
+  
+}
+
+.modal-content {
+  background: white;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content input {
+  width: 90%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.modal-content button {
+  padding: 10px 25px;
+ 
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #218838;
+}
+
+.close {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.feedback-card {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 20px;
+ 
+  width: 300px;
+  background-color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.feedback-card:hover {
+  transform: scale(1.03);
+}
+
+.feedback-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.stars {
+  font-size: 30px;
+  color: gold;
+  margin: 5px 0;
+}
+
+.star {
+  cursor: pointer;
+}
+
+.star.filled {
+  color: gold;
+}
+
+
+.feedback-one{
+    display:flex;
+    justify-content:center;
+}
+.ofeedback{
+    padding:10px;
+    margin:10px;
+}
+.thfeedback{
+    padding:10px;
+    margin:10px;
+}
+.thrfeedback{
+    padding:10px;
+    margin:10px;
+}
+
+
 
 header {
             background: #ff5733;
@@ -707,6 +889,7 @@ header {
   
 
  </div>
+ 
 
 
       
@@ -814,12 +997,145 @@ header {
 </div>
 
 
-    <script>
-        function toggleMenu() {
-            document.getElementById('menu').classList.toggle('show');
-        }
-    </script>
+<!-- Feedback Section -->
+<div class="feedback-section">
+    <h1 class="feedback-title">Customer Feedback</h1>
+    <div class="feedback" id="feedback-container">
+      {% for fb in feedbacks %}
+      <div class="feedback-card" id="feedback-{{ fb.id }}">
+          <img src="{{ fb.image.url }}" alt="Feedback Image" class="feedback-img">
+          <h3>{{ fb.name }}</h3>
+          <div class="stars">
+              {% for i in "12345"|slice:":fb.rating"|make_list %}
+              <span class="star filled">★</span>
+              {% endfor %}
+              {% for i in "12345"|slice:"fb.rating:"|make_list %}
+              <span class="star">☆</span>
+              {% endfor %}
+          </div>
+          <p>{{ fb.text }}</p>
+          <button class="delete-feedback-btn" data-id="{{ fb.id }}">Delete</button>
+      </div>
+      {% endfor %}
+    </div>
   
-    
+    <button id="open-modal-btn">➕ Add Feedback</button>
+</div>
+
+ <!-- Feedback Modal -->
+<div id="feedback-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 style="color: #333;">Add Your Feedback</h2>
+      <form id="feedback-form" enctype="multipart/form-data">
+        {% csrf_token %}
+  
+        <!-- Name -->
+        <input type="text" name="name" placeholder="Your Name" class="input-field" required>
+  
+        <!-- Email -->
+        <input type="email" name="email" placeholder="Your Email" class="input-field" required>
+  
+        <!-- Image Upload -->
+        <label style="font-weight: bold; display: block; margin: 10px 0;">Upload Image:</label>
+        <input type="file" name="image" accept="image/*" class="input-field">
+  
+        <!-- Star Rating -->
+        <label style="font-weight: bold; display: block; margin-top: 15px;">Rating:</label>
+        <div id="star-rating" class="star-rating">
+          {% for i in "12345" %}
+            <span class="star" data-value="{{ forloop.counter }}">☆</span>
+          {% endfor %}
+        </div>
+        <input type="hidden" name="rating" id="rating" value="0">
+  
+        <!-- Feedback -->
+        <textarea name="text" placeholder="Your feedback..." class="input-field" rows="4" required></textarea>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+
+
+
+  <h1>copyright </h1>
+  
+  
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+  // Modal open/close
+  $('#open-modal-btn').click(() => $('#feedback-modal').fadeIn());
+  $('.close').click(() => $('#feedback-modal').fadeOut());
+  $(window).click(e => {
+    if ($(e.target).is('#feedback-modal')) $('#feedback-modal').fadeOut();
+  });
+
+  // Star rating selection
+  $('#star-rating .star').on('click', function () {
+    const val = $(this).data('value');
+    $('#rating').val(val);
+    $('#star-rating .star').each(function () {
+      $(this).text($(this).data('value') <= val ? '★' : '☆');
+    });
+  });
+
+  // AJAX form submit
+  $('#feedback-form').submit(function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    $.ajax({
+      url: "{% url 'add_feedback' %}",
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        if (data.status === 'success') {
+          const card = `
+            <div class="feedback-card new-card">
+              <img src="${data.image_url}" alt="user" class="feedback-img">
+              <h3>${data.name}</h3>
+              <div class="stars">${'★'.repeat(data.rating)}${'☆'.repeat(5 - data.rating)}</div>
+              <p>"${data.text}"</p>
+            </div>`;
+          $('#feedback-container').prepend(card);
+          $('#feedback-modal').fadeOut();
+          $('#feedback-form')[0].reset();
+          $('#rating').val(0);
+          $('#star-rating .star').text('☆');
+
+          // Animate the new card
+          $('.new-card').hide().fadeIn(500).removeClass('new-card');
+        } else {
+          alert('Submission failed.');
+        }
+      }
+    });
+  });
+
+  // Delete Feedback
+  $('.delete-feedback-btn').click(function () {
+    const feedbackId = $(this).data('id');
+    $.ajax({
+      url: `/delete_feedback/${feedbackId}/`,
+      type: 'POST',
+      data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+      success: function (response) {
+        if (response.status === 'success') {
+          $(`#feedback-${feedbackId}`).fadeOut();
+          alert(response.message);
+        } else {
+          alert(response.message);
+        }
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>

@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from .views import send_offer_email_view
 
@@ -21,6 +23,10 @@ urlpatterns = [
     path('customer_single_data/<int:pk>/',CustomerRetriveUpdateDestroyView.as_view(),name="customer_single_data"),
 
     path('send-offer-email/', send_offer_email_view, name='send_offer_email'),
-
+    path('add_feedback', views.add_feedback, name='add_feedback'),
+    path('delete_feedback/<int:feedback_id>/', views.delete_feedback, name='delete_feedback'),  # Add delete feedback URL
 ]
 
+# Add this line to serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

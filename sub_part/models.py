@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 import os
+from django.core.exceptions import ValidationError
 
 # Function to generate unique file names based on current timestamp
 def getFileName(request, filename):
@@ -54,5 +55,19 @@ class CustomerBookingTable(models.Model):  # Class name in PascalCase
     status = models.CharField(max_length=100, default="Pending")
     treading=models.BooleanField(default=False,help_text="0-default,1-treading")
 
+
+
+class Feedback(models.Model):  # ✅ Renamed from add_feedback to Feedback
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    image = models.ImageField(upload_to='feedback_images', null=True, blank=True)
+    rating = models.IntegerField()
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if self.rating < 1 or self.rating > 5:
+            raise ValidationError('Rating must be between 1 and 5.')
+
     def __str__(self):
-        return self.customer_name  # String representation of the model
+        return self.name
